@@ -9,6 +9,10 @@ NOTION_DB_READER   = "28dfbfdf24a848cd9de28302454ee3dd"
 
 FEISHU_BOT_API = os.environ.get("FEISHU_BOT_API")
 FEISHU_BOT_SEC = os.environ.get("FEISHU_BOT_SEC")
+def feishu_bot_send_msg(msg):
+    if FEISHU_BOT_API:
+        requests.post(FEISHU_BOT_API, json={"pass": FEISHU_BOT_SEC, "msg": msg})
+
 
 def process_entry(entry:dict, keywords:list):
     entropy        = 0
@@ -37,6 +41,14 @@ def read_rss(rsslist):
     # !! 必须和 Notion RSS DB 保持一致
         entries = parse_rss(rss)
         print(f"Got {len(entries)} items from #{rss.get('title')}#")
+        if len(entries) == 0:
+            feishu_bot_send_msg("""
+---
+RSS Warning!
+---
+{title} Got 0 item!
+    {uri}
+""".format(title = rss.get("title"), uri=rss.get("uri")))
         for entry in entries:
             yield entry
 
@@ -62,12 +74,9 @@ def run():
 ---
 NEW RSS
 ---
-{msg)}
-""".format(msg = '\n'.join(new_entries))
-
-    if FEISHU_BOT_API:
-        requests.post(FEISHU_BOT_API, json={"pass": FEISHU_BOT_SEC, "msg": msg})
-
+{lines}
+""".format(lines= '\n'.join(new_entries))
+    print(msg)
 
 if __name__ == "__main__":
     run()
