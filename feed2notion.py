@@ -76,7 +76,7 @@ NEW RSS
 ---
 {lines}
 """.format(lines= '\n'.join(new_entries))
-    print(msg)
+    feishu_bot_send_msg(msg)
 
 if __name__ == "__main__":
     run()
