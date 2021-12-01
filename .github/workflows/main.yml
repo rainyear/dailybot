@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Rss2Notion
+name: chaundashi.cybrain.xyz
 
 # Controls when the workflow will run
 on:
@@ -17,6 +17,8 @@ jobs:
       matrix:
         python-version: [3.8]
 
+    env:
+      NOTION_SEC: ${{ secrets.NOTION_SEC}}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
