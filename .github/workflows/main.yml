@@ -19,6 +19,8 @@ jobs:
 
     env:
       NOTION_SEC: ${{ secrets.NOTION_SEC}}
+      FEISHU_BOT_API: ${{ secrets.FEISHU_BOT_API }}
+      FEISHU_BOT_SEC: ${{ secrets.FEISHU_BOT_SEC }}
     steps:
       - uses: actions/checkout@v2
       - name: Set up Python ${{ matrix.python-version }}
