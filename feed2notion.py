@@ -1,10 +1,14 @@
 import os
+import requests
 from utils import NotionAPI, deep_get, parse_rss
 
 NOTION_SEC         = os.environ.get("NOTION_SEC")
 NOTION_DB_RSS      = "90761665a1d141b984afca52a2b05410"
 NOTION_DB_KEYWORDS = "26d213dcc8b641cd921db43eb7b23733"
 NOTION_DB_READER   = "28dfbfdf24a848cd9de28302454ee3dd"
+
+FEISHU_BOT_API = os.environ.get("FEISHU_BOT_API")
+FEISHU_BOT_SEC = os.environ.get("FEISHU_BOT_SEC")
 
 def process_entry(entry:dict, keywords:list):
     entropy        = 0
@@ -44,13 +48,25 @@ def run():
 
     keywords = api.query_keywords()
 
+    new_entries = []
     for entry in read_rss(api.query_open_rss()):
         res = process_entry(entry, keywords)
         if res.get("entropy") > 0:
             if not api.is_page_exist(entry.get("link")):
                 api.save_page(entry)
+                new_entries.append(entry.get("title"))
             else:
                 print(f"Entry {entry.get('title')} already exist!")
+    
+    msg = """
+---
+NEW RSS
+---
+{msg)}
+""".format(msg = '\n'.join(new_entries))
+
+    if FEISHU_BOT_API:
+        requests.post(FEISHU_BOT_API, json={"pass": FEISHU_BOT_SEC, "msg": msg})
 
 
 if __name__ == "__main__":
