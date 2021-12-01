@@ -26,15 +26,16 @@ class NotionAPI:
         return "{}{}".format(self.NOTION_API_HOST, path)
 
     def query_keywords(self):
-        api = self.api_endpoint("/databases/{self._kw_id}/query")
+        api = self.api_endpoint(f"/databases/{self._kw_id}/query")
         res = self.session.post(
             api, json={"filter": {"property": "Open", "checkbox": {"equals": True}}}
         )
+        print(res.json())
         results = res.json().get("results")
         return results
 
     def query_open_rss(self):
-        api = self.api_endpoint("/databases/{self._rss_id}/query")
+        api = self.api_endpoint(f"/databases/{self._rss_id}/query")
         res = self.session.post(
             api,
             json={"filter": {"property": "Enable", "checkbox": {"equals": True}}},
@@ -103,7 +104,7 @@ class NotionAPI:
 
 
 def run():
-    if NOTION_SEC is None: 
+    if NOTION_SEC is None:
         print("NOTION_SEC secrets is not set!")
         return
     api = NotionAPI(NOTION_SEC, NOTION_DB_RSS, NOTION_DB_KEYWORDS, NOTION_DB_READER)
