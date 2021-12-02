@@ -6,12 +6,13 @@ name: chaundashi.cybrain.xyz
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   # Allows you to run this workflow manually from the Actions tab
+  schedule:
+    - cron: "20 6 * * *" #
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
-
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -31,7 +32,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-          
+
       - name: Load RSS feeds
         run: |
           python feed2notion.py
