@@ -1,5 +1,7 @@
 # Notion as Feed Manager
 
+![](./frame.png)
+
 > Inspired by [Feed Reader in Notion](https://github.com/ravgeetdhillon/notion-feeder)
 
 ### 🚀 Features
