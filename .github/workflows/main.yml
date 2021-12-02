@@ -1,13 +1,13 @@
 # This is a basic workflow to help you get started with Actions
 
-name: chaundashi.cybrain.xyz
+name: Get RSS
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   # Allows you to run this workflow manually from the Actions tab
   schedule:
-    - cron: "20 6 * * *" #
+    - cron: "26 6 * * *" #
   workflow_dispatch:
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
