@@ -21,4 +21,8 @@
 
 📝 [RSS 2 Notion](https://note.cybrain.xyz/RSS-2-Notion-8c6df22c1f6745349693356dcc0c689a)
 
+### 🤖 Bot Notification
+
+`GitHub Actions -> Deta webhook -> Bot server`
+
 [![Deploy](https://button.deta.dev/1/svg)](https://go.deta.dev/deploy?repo=https://github.com/rainyear/chuandashi.cybrain.xyz)
