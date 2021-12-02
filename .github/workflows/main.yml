@@ -5,7 +5,7 @@ name: Get RSS
 # Controls when the workflow will run
 on:
   schedule:
-    - cron: "25 * * * *"
+    - cron: "0 6 * * *"
   workflow_dispatch:
 
 jobs:

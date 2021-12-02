@@ -75,6 +75,7 @@ def run():
             else:
                 print(f"Entry {entry.get('title')} already exist!")
     # 飞书提示
-    _wrap_rss_new_msg_fmt(new_entries)
+    if len(new_entries) > 0:
+        _wrap_rss_new_msg_fmt(new_entries)
 if __name__ == "__main__":
     run()
