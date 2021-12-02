@@ -1,0 +1,51 @@
+{
+    "config": {
+        "wide_screen_mode": true
+    },
+    "elements": [
+        {
+            "tag": "markdown",
+            "content": "**title**",
+            "href": {
+                "urlVal": {
+                    "url": "https://www.feishu.com",
+                    "android_url": "https://developer.android.com/",
+                    "ios_url": "lark://msgcard/unsupported_action",
+                    "pc_url": "https://www.feishu.com"
+                }
+            }
+        },
+        {
+            "tag": "hr"
+        },
+        {
+            "tag": "markdown",
+            "content": "content",
+            "href": {
+                "urlVal": {
+                    "url": "https://www.feishu.com",
+                    "android_url": "https://developer.android.com/",
+                    "ios_url": "lark://msgcard/unsupported_action",
+                    "pc_url": "https://www.feishu.com"
+                }
+            }
+        },
+        {
+            "tag": "note",
+            "elements": [
+                {
+                    "tag": "img",
+                    "img_key": "img_v2_52a084f5-ad8c-46a8-bff1-0e9b9d4c95fg",
+                    "alt": {
+                        "tag": "plain_text",
+                        "content": "图片"
+                    }
+                },
+                {
+                    "tag": "plain_text",
+                    "content": "传达室大爷"
+                }
+            ]
+        }
+    ]
+}
