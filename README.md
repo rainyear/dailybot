@@ -8,6 +8,11 @@
 
 **1. Notion Databases - RSS Source; Keywords Filter; Reader**
 
+- Manage RSS in Notion;
+- Manage Keywords filter in Notion;
+- Save RSS entries into Notion;
+- [Optional] Bot notification.
+
 **2. GitHub Actions - Run RSS parsing & filtering every day**
 
 **3. Deta Serverless API - Bot (Optional)**
