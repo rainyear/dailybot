@@ -20,7 +20,10 @@ def _wrap_rss_warning_msg_fmt(title, uri):
     content = f"{title} 读取失败！\n\t{uri}"
     feishu_bot_send_msg({"title": "❗ RSS Warning", "content": content})
 def _wrap_rss_new_msg_fmt(entries):
-    msg = {"title": "🔔 NEW RSS", "content": "\n".join(entries)}
+    content = ""
+    for i, entry in enumerate(entries):
+        content += f"{i+1}. [{entry.get('title')}]({entry.get('link')})\n"
+    msg = {"title": "🔔 NEW RSS", "content": content}
 
     feishu_bot_send_msg(msg)
 
@@ -71,7 +74,7 @@ def run():
         if res.get("entropy") > 0:
             if not api.is_page_exist(entry.get("link")):
                 api.save_page(entry)
-                new_entries.append(entry.get("title"))
+                new_entries.append(entry)
             else:
                 print(f"Entry {entry.get('title')} already exist!")
     # 飞书提示
