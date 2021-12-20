@@ -12,7 +12,7 @@ TIMESTAMP = lambda: datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 DATESTAMP = lambda: datetime.now().strftime("%Y-%m-%d")
 
 """
-rss = {
+entry = {
     "title"  : "文章标题",
     "link"   : "文章链接",
     "summary": "文章摘要",
@@ -26,10 +26,16 @@ rss = {
 }
 """
 
+
 def parse_rss(rss_info: dict):
     entries = []
     try:
-        res = _req.get(rss_info.get("uri"), headers={"user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.34"})
+        res = _req.get(
+            rss_info.get("uri"),
+            headers={
+                "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36 Edg/96.0.1054.34"
+            },
+        )
         feed = feedparser.parse(res.text)
     except:
         print("Feedparser error")
@@ -50,6 +56,7 @@ def parse_rss(rss_info: dict):
     # 读取前 20 条
     return entries[:20]
 
+
 def deep_get(dictionary, keys, default=None):
     return reduce(
         lambda d, key: d.get(key, default) if isinstance(d, dict) else default,
@@ -57,20 +64,23 @@ def deep_get(dictionary, keys, default=None):
         dictionary,
     )
 
+
 class NotionAPI:
     NOTION_API_HOST = "https://api.notion.com/v1"
+
     def __init__(self, sec, rss, keyword, coll) -> None:
-        self._sec    = sec
+        self._sec = sec
         self._rss_id = rss
-        self._kw_id  = keyword
+        self._kw_id = keyword
         self._col_id = coll
         self.HEADERS = {
             "Authorization": f"Bearer {self._sec}",
             "Notion-Version": "2021-08-16",
-            "Content-Type"  : "application/json",
+            "Content-Type": "application/json",
         }
         self.session = _req.Session()
         self.session.headers.update(self.HEADERS)
+
     def api_endpoint(self, path):
         return "{}{}".format(self.NOTION_API_HOST, path)
 
@@ -95,9 +105,11 @@ class NotionAPI:
         results = res.json().get("results")
         rss_list = [
             {
-                "isWhiteList" : deep_get(r, "properties.Whitelist.checkbox"),
-                "uri"         : deep_get(r, "properties.URI.url"),
-                "title"       : deep_get(r, "properties.Name.title")[0].get("text").get("content")
+                "isWhiteList": deep_get(r, "properties.Whitelist.checkbox"),
+                "uri": deep_get(r, "properties.URI.url"),
+                "title": deep_get(r, "properties.Name.title")[0]
+                .get("text")
+                .get("content"),
             }
             for r in results
         ]
@@ -106,10 +118,10 @@ class NotionAPI:
     def is_page_exist(self, uri):
         api = self.api_endpoint(f"/databases/{self._col_id}/query")
         res = self.session.post(
-            api,
-            json={"filter": {"property": "URI", "text": {"equals": uri}}}
+            api, json={"filter": {"property": "URI", "text": {"equals": uri}}}
         )
         return len(res.json().get("results")) > 0
+
     def save_page(self, entry):
         api = self.api_endpoint("/pages")
 
