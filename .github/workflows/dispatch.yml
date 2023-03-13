@@ -21,6 +21,7 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Load RSS feeds
-        env: MESSAGE: ${{ github.event.payload.message }}
+        env:
+          MESSAGE: ${{ github.event.payload.message }}
         run: |
           python webhook.py $MESSAGE
