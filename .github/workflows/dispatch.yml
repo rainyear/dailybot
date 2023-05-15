@@ -16,13 +16,8 @@ jobs:
         uses: actions/setup-python@v2
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
-
       - name: Response to Webhook event
         env:
           MESSAGE: ${{ github.event.client_payload.message }}
         run: |
-          python webhook.py $MESSAGE
+          python weread2opml.py $MESSAGE
