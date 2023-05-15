@@ -4,9 +4,9 @@ on:
   repository_dispatch:
   workflow_dispatch:
 
+permissions: write-all
 jobs:
   build:
-    permissions: write-all
     runs-on: ubuntu-latest
     strategy:
       matrix:
