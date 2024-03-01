@@ -5,8 +5,8 @@ from utils import NotionAPI, deep_get, parse_rss
 NOTION_SEC = os.environ.get("NOTION_SEC")
 NOTION_DB_RSS = "90761665a1d141b984afca52a2b05410"
 NOTION_DB_KEYWORDS = "26d213dcc8b641cd921db43eb7b23733"
-NOTION_DB_READER = "28dfbfdf24a848cd9de28302454ee3dd"
-
+NOTION_DB_READER = "bcc40eb17dc54258866faf765b151840"
+# https://www.notion.so/v2xr/bcc40eb17dc54258866faf765b151840?v=4719f35c57024c5eb54c996846b2cae4&pvs=4
 FEISHU_BOT_API = os.environ.get("FEISHU_BOT_API")
 FEISHU_BOT_SEC = os.environ.get("FEISHU_BOT_SEC")
 
